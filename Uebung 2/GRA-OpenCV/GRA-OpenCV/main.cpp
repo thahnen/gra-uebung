@@ -10,6 +10,7 @@
 #include <iostream>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 using namespace cv;
 using namespace std;
@@ -34,7 +35,17 @@ int main(int argc, const char * argv[]) {
     waitKey(0);
     
     // a) lineare Skalierung (mittels Look-Up-Table)
-    Mat ls_bild = bild;
+    Mat ls_bild;
+    double ls_min, ls_max;
+    minMaxLoc(bild, &ls_min, &ls_max);
+    Mat ls_LUT(1, 256, CV_8U);
+    uchar* p = ls_LUT.ptr();
+    for (int i=0; i<256; i++) {
+        // g'(g) =(g-g_min)*((w_max-w_min)/(g_max-g_min))
+        // g=i - g_min=ls_min - g_max=ls_max - w_min=0 - w_max=255
+        p[i] = (i-ls_min)*(255/(ls_max-ls_min)); // darf das überhaupt unter 0 kommen?
+    }
+    LUT(bild, ls_LUT, ls_bild);
     
     meanStdDev(ls_bild, durchschnitt, standardabweichung);
     cout << "Mittlerer Grauwert (Lineare Skalierung): " << durchschnitt[0] << endl;
@@ -44,6 +55,7 @@ int main(int argc, const char * argv[]) {
     
     
     // b) Gamma-Transformation
+    // TODO: irgendwie noch nicht so richtig oder?
     Mat gt_bild = bild;
     double min, max;
     minMaxLoc(gt_bild, &min, &max);
@@ -64,6 +76,25 @@ int main(int argc, const char * argv[]) {
     
     
     // c) Histogrammausgleich
+    Mat ha_bild;
+    equalizeHist(bild, ha_bild);
+    
+    meanStdDev(ha_bild, durchschnitt, standardabweichung);
+    cout << "Mittlerer Grauwert (Histogrammausgleich): " << durchschnitt[0] << endl;
+    cout << "Standardabweichung (Histogrammausgleich): " << standardabweichung[0] << endl;
+    imshow("Histogrammausgleich", ha_bild);
+    waitKey(0);
+    
+    
+    // d) Kontrastanpassung mit Quantilen s_low/ s_high = 10%
+    // TODO: herausfinden, was gemeint ist!
+    Mat ka_bild = bild; // muss dann noch geändert werden!
+    
+    meanStdDev(ka_bild, durchschnitt, standardabweichung);
+    cout << "Mittlerer Grauwert (Kontrastanpassung): " << durchschnitt[0] << endl;
+    cout << "Standardabweichung (Kontrastanpassung): " << standardabweichung[0] << endl;
+    imshow("Kontrastanpassung (fehlt noch!)", ka_bild);
+    waitKey(0);
     
     
     return 0;
