@@ -8,6 +8,7 @@
 // ÜBUNG 1
 
 #include <iostream>
+#include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
@@ -51,25 +52,24 @@ int main(int argc, const char * argv[]) {
     
     
     // 5. Aufgabe
-    int anzahl_pixel = 0;
+    Mat n_bild = bild > durchschnitt[0];
+    compare(bild, durchschnitt[0], n_bild, CMP_GT);
     
-    for (int i=0; i<bild.rows; i++) {
-        for (int j=0; j<bild.cols; j++) {
-            if (bild.at<uchar>(i, j) > durchschnitt[0]) {
-                anzahl_pixel++;
-                bild.at<uchar>(i, j) = 255;
-            }
-        }
-    }
+    cout << "Anzahl der Pixel mit größerem Grauwert als Durchschnitt: " << countNonZero(n_bild) << endl;
     
-    cout << "Anzahl der Pixel mit größerem Grauwert als Durchschnitt: " << anzahl_pixel << endl;
-    imshow("Uebung 1 - Aufgabe 5", bild);
+    Mat max_bild;
+    cv::max(bild, n_bild, max_bild);
+    imshow("Uebung 1 - Aufgabe 5", max_bild);
     waitKey(0);
     
     
     // 6. Aufgabe
-    // TODO: Kein Plan wie das geht :(
+    Mat farb_bild;
+    Mat bild_farben[] = {Mat_<uchar>(bild),Mat_<uchar>(bild),Mat_<uchar>(max_bild)};
+    merge(bild_farben, 3, farb_bild);
     
+    imshow("Uebung 1 - Aufgabe 6", farb_bild);
+    waitKey(0);
     
     return 0;
 }

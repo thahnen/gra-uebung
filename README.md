@@ -1,4 +1,4 @@
-# Übungen: Graphische Daten- & Bildverarbeitung
+# Übung: Graphische Daten- & Bildverarbeitung
 
 **Vorlesung: Graphische Daten- & Bildverarbeitung (3. Semester)**
 
@@ -13,3 +13,4 @@ Das Xcode-Template ist immer das gleiche, da Compiler Linken etc. zu anstrengend
 - [x] Übung 1 (12.10.2018) : siehe Ordner
 - [ ] Übung 2 (19.10.2018) : siehe Ordner
 - [ ] Übung 3 (26.10.2018) :
+- ...
