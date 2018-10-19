@@ -29,7 +29,7 @@ int main(int argc, const char * argv[]) {
     // 1. Aufgabe
     Scalar durchschnitt, standardabweichung;
     meanStdDev(bild, durchschnitt, standardabweichung);
-    cout << "Mittlerer Grauwert (Normales Bild): " << durchschnitt[0] << endl;
+    cout << "\nMittlerer Grauwert (Normales Bild): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Normales Bild): " << standardabweichung[0] << endl;
     imshow("Normales Bild", bild);
     waitKey(0);
@@ -48,7 +48,7 @@ int main(int argc, const char * argv[]) {
     LUT(bild, ls_LUT, ls_bild);
     
     meanStdDev(ls_bild, durchschnitt, standardabweichung);
-    cout << "Mittlerer Grauwert (Lineare Skalierung): " << durchschnitt[0] << endl;
+    cout << "\nMittlerer Grauwert (Lineare Skalierung): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Lineare Skalierung): " << standardabweichung[0] << endl;
     imshow("Lineare Skalierung", ls_bild);
     waitKey(0);
@@ -64,12 +64,12 @@ int main(int argc, const char * argv[]) {
         for (int j=0; j<gt_bild.cols; j++) {
             // Gammakorrektur Gespreitzt (<1), Gestaucht (>1), Linear (=1)
             // ! Gespreitzt funktioniert irgendwie nicht !
-            gt_bild.at<uchar>(i, j) = max * pow((gt_bild.at<uchar>(i, j)/ max), 1);
+            gt_bild.at<uchar>(i, j) = max * pow((gt_bild.at<uchar>(i, j)/ max), 2);
         }
     }
     
     meanStdDev(gt_bild, durchschnitt, standardabweichung);
-    cout << "Mittlerer Grauwert (Gamma-Transformation): " << durchschnitt[0] << endl;
+    cout << "\nMittlerer Grauwert (Gamma-Transformation): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Gamma-Transformation): " << standardabweichung[0] << endl;
     imshow("Gamma-Transformation", gt_bild);
     waitKey(0);
@@ -80,7 +80,7 @@ int main(int argc, const char * argv[]) {
     equalizeHist(bild, ha_bild);
     
     meanStdDev(ha_bild, durchschnitt, standardabweichung);
-    cout << "Mittlerer Grauwert (Histogrammausgleich): " << durchschnitt[0] << endl;
+    cout << "\nMittlerer Grauwert (Histogrammausgleich): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Histogrammausgleich): " << standardabweichung[0] << endl;
     imshow("Histogrammausgleich", ha_bild);
     waitKey(0);
@@ -91,7 +91,7 @@ int main(int argc, const char * argv[]) {
     Mat ka_bild = bild; // muss dann noch geändert werden!
     
     meanStdDev(ka_bild, durchschnitt, standardabweichung);
-    cout << "Mittlerer Grauwert (Kontrastanpassung): " << durchschnitt[0] << endl;
+    cout << "\nMittlerer Grauwert (Kontrastanpassung): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Kontrastanpassung): " << standardabweichung[0] << endl;
     imshow("Kontrastanpassung (fehlt noch!)", ka_bild);
     waitKey(0);
