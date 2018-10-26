@@ -12,12 +12,13 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#define DEBUG false
+#define DEBUG true
 
 using namespace cv;
 using namespace std;
 
-void histogramm(Mat &bild, Mat &hist, Mat &hist_bild, int hist_w, int hist_h, Scalar color) {
+void histogramm(Mat &bild, Mat &hist_bild, int hist_w, int hist_h, Scalar color) {
+    Mat hist;
     int hist_size = 256;
     float range[] = {0, 256};
     const float* hist_range = { range };
@@ -38,7 +39,6 @@ int main(int argc, const char * argv[]) {
     Mat hist;
     Mat hist_bild(hist_h, hist_w, CV_8UC3, Scalar(0, 0, 0));
     
-    
     if (!bild.data) {
         cerr << "Bild konnte nicht geladen werden!" << endl;
         return 1;
@@ -51,7 +51,8 @@ int main(int argc, const char * argv[]) {
     cout << "\nMittlerer Grauwert (Normales Bild): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Normales Bild): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Normales Bild", bild);
-    histogramm(bild, hist, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
+    hist_bild = Scalar(0, 0, 0);
+    histogramm(bild, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
     imshow("Hist: Normales Bild", hist_bild);
     waitKey(0);
     
@@ -73,7 +74,7 @@ int main(int argc, const char * argv[]) {
     cout << "Standardabweichung (Lineare Skalierung): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Lineare Skalierung", ls_bild);
     hist_bild = Scalar(0, 0, 0);
-    histogramm(ls_bild, hist, hist_bild, hist_w, hist_h, Scalar(0, 255, 0));
+    histogramm(ls_bild, hist_bild, hist_w, hist_h, Scalar(0, 255, 0));
     imshow("Hist: Lineare Skalierung", hist_bild);
     waitKey(0);
     
@@ -100,7 +101,7 @@ int main(int argc, const char * argv[]) {
     cout << "Standardabweichung (Gamma-Transformation): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Gamma-Transformation", gt_bild);
     hist_bild = Scalar(0, 0, 0);
-    histogramm(gt_bild, hist, hist_bild, hist_w, hist_h, Scalar(0, 0, 255));
+    histogramm(gt_bild, hist_bild, hist_w, hist_h, Scalar(0, 0, 255));
     imshow("Hist: Gamma-Transformation", hist_bild);
     waitKey(0);
     
@@ -114,7 +115,7 @@ int main(int argc, const char * argv[]) {
     cout << "Standardabweichung (Histogrammausgleich): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Histogrammausgleich", ha_bild);
     hist_bild = Scalar(0, 0, 0);
-    histogramm(ha_bild, hist, hist_bild, hist_w, hist_h, Scalar(255, 0, 0));
+    histogramm(ha_bild, hist_bild, hist_w, hist_h, Scalar(255, 0, 0));
     imshow("Hist: Histogrammausgleich", hist_bild);
     waitKey(0);
     
