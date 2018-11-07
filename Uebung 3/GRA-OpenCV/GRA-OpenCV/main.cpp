@@ -18,6 +18,7 @@
 using namespace cv;
 using namespace std;
 
+
 void histogramm(Mat &bild, Mat &hist_bild, int hist_w, int hist_h, Scalar color) {
     Mat hist;
     int hist_size = 256;
