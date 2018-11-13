@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
   //Erzeugen eines Fensters und Anzeige des Bildes
   imshow("Original", img );
   GaussianBlur(img, img, Size(5, 5), 2.0);
+    
+    
   Mat dx, dy, dxx, dyy, betrag, show, bin;
   Sobel(img, dx, CV_32F, 1, 0);
   Sobel(img, dy, CV_32F, 0, 1);
@@ -35,6 +37,8 @@ int main(int argc, char *argv[])
   imshow("Betrag", show );
   threshold(show, show, 100, 255, CV_THRESH_BINARY);
   imshow("Bin", show);
+    
+    
   for (int i = 0; i < img.rows; i = i + 5)
 	  for (int j = 0; j < img.cols; j = j + 5)
 	  {
@@ -45,8 +49,12 @@ int main(int argc, char *argv[])
 			  arrowedLine(color, cv::Point(j, i), cv::Point(j + x /10, i + y /10), Scalar(0, 0, 255));
 		  }
 	  }
+    
+    
   Scharr(img, dx, CV_32F, 1, 0);
   Scharr(img, dy, CV_32F, 0, 1);
+    
+    
   for (int i = 0; i < img.rows; i = i + 5)
 	  for (int j = 0; j < img.cols; j = j + 5)
 	  {
