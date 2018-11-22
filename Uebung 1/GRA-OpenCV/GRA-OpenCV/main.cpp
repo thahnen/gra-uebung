@@ -15,26 +15,25 @@
 using namespace cv;
 using namespace std;
 
-void histogramm(Mat &bild, Mat &hist_bild, int hist_w, int hist_h, Scalar color) {
+Mat histogramm(Mat &bild) {
+    int hist_w = 256;
+    int hist_h = 450;
+    Mat hist_bild(450, 256, CV_8UC3, Scalar(0, 0, 0));
     Mat hist;
-    int hist_size = 256;
     float range[] = {0, 256};
     const float* hist_range = { range };
-    calcHist(&bild, 1, 0, Mat(), hist, 1, &hist_size, &hist_range, true, false);
-    int bin_w = (int)((double)hist_w/hist_size);
+    calcHist(&bild, 1, 0, Mat(), hist, 1, &hist_w, &hist_range, true, false);
     normalize(hist, hist, 0, hist_bild.rows, NORM_MINMAX, -1, Mat());
-    for (int i=0; i<hist_size; i++) {
-        line(hist_bild, Point(bin_w*(i), hist_h-cvRound(hist.at<float>(i))), Point(bin_w*(i), hist_h), color);
+    for (int i=0; i<hist_w; i++) {
+        line(hist_bild, Point(i, hist_h-cvRound(hist.at<float>(i))), Point(i, hist_h), Scalar(255, 255, 255));
     }
+    return hist_bild;
 }
 
 int main(int argc, const char * argv[]) {
     // Setup
     // Warum auch immer kein relativer Pfad geladen werden kann -.-
     Mat bild = imread("/Users/thahnen/GitHub/gra-uebung/Uebung 1/zelle_grau.bmp", 0);
-    int hist_w = 256;
-    int hist_h = 450;
-    Mat hist_bild(hist_h, hist_w, CV_8UC3, Scalar(0, 0, 0));
     
     if (!bild.data) {
         cerr << "Bild konnte nicht geladen werden!" << endl;
@@ -44,10 +43,7 @@ int main(int argc, const char * argv[]) {
     
     // 1. Aufgabe
     imshow("Uebung 1", bild);
-    // Histogramm macht nichts!
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(bild, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
-    imshow("Hist: Normales Bild", hist_bild);
+    imshow("Hist: Normales Bild", histogramm(bild));
     waitKey(0);
     
     
@@ -80,10 +76,7 @@ int main(int argc, const char * argv[]) {
     Mat max_bild;
     cv::max(bild, n_bild, max_bild);
     imshow("Uebung 1 - Aufgabe 5", max_bild);
-    // Histogramm macht nichts!
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(max_bild, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
-    imshow("Hist: Größer als Durchschnitt", hist_bild);
+    imshow("Hist: Größer als Durchschnitt", histogramm(max_bild));
     waitKey(0);
     
     

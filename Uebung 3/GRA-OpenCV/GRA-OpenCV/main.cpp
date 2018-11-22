@@ -19,17 +19,19 @@ using namespace cv;
 using namespace std;
 
 
-void histogramm(Mat &bild, Mat &hist_bild, int hist_w, int hist_h, Scalar color) {
+Mat histogramm(Mat &bild) {
+    int hist_w = 256;
+    int hist_h = 450;
+    Mat hist_bild(450, 256, CV_8UC3, Scalar(0, 0, 0));
     Mat hist;
-    int hist_size = 256;
     float range[] = {0, 256};
     const float* hist_range = { range };
-    calcHist(&bild, 1, 0, Mat(), hist, 1, &hist_size, &hist_range, true, false);
-    int bin_w = (int)((double)hist_w/hist_size);
+    calcHist(&bild, 1, 0, Mat(), hist, 1, &hist_w, &hist_range, true, false);
     normalize(hist, hist, 0, hist_bild.rows, NORM_MINMAX, -1, Mat());
-    for (int i=0; i<hist_size; i++) {
-        line(hist_bild, Point(bin_w*(i), hist_h-cvRound(hist.at<float>(i))), Point(bin_w*(i), hist_h), color);
+    for (int i=0; i<hist_w; i++) {
+        line(hist_bild, Point(i, hist_h-cvRound(hist.at<float>(i))), Point(i, hist_h), Scalar(255, 255, 255));
     }
+    return hist_bild;
 }
 
 void filter(Mat img, Mat &nimg, Mat mask) {
@@ -53,9 +55,6 @@ int main(int argc, const char * argv[]) {
     // Warum auch immer kein relativer Pfad geladen werden kann -.-
     Mat bild = imread("/Users/thahnen/GitHub/gra-uebung/Uebung 3/London.bmp", 0);
     Mat n_bild, temp;
-    int hist_w = 256;
-    int hist_h = 450;
-    Mat hist_bild(hist_h, hist_w, CV_8UC3, Scalar(0, 0, 0));
     
     if (!bild.data) {
         cerr << "Bild konnte nicht geladen werden!" << endl;
@@ -87,9 +86,7 @@ int main(int argc, const char * argv[]) {
     cout << "\nMittlerer Grauwert (Normales Bild): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Normales Bild): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Normales Bild", bild);
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(bild, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
-    imshow("Hist: Normales Bild", hist_bild);
+    imshow("Hist: Normales Bild", histogramm(bild));
     waitKey(0);
     
     
@@ -104,9 +101,7 @@ int main(int argc, const char * argv[]) {
     zeitverbrauch = double(end-begin)/CLOCKS_PER_SEC;
     cout << "\n Zeit für 3-fache 3x3-Filterung (in s): " << zeitverbrauch << endl;
     if (DEBUG) imshow("3-fache 3x3-Filterung", temp);
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(temp, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
-    imshow("Hist: 3x3-Filterung", hist_bild);
+    imshow("Hist: 3x3-Filterung", histogramm(temp));
     waitKey(0);
     
     
@@ -118,9 +113,7 @@ int main(int argc, const char * argv[]) {
     zeitverbrauch = double(end-begin)/CLOCKS_PER_SEC;
     cout << "\n Zeit für 1-fache 7x7-Filterung (in s): " << zeitverbrauch << endl;
     if (DEBUG) imshow("1-fache 7x7-Filterung", n_bild);
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(n_bild, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
-    imshow("Hist: 7x7-Filterung", hist_bild);
+    imshow("Hist: 7x7-Filterung", histogramm(n_bild));
     waitKey(0);
     
     
@@ -133,9 +126,7 @@ int main(int argc, const char * argv[]) {
     zeitverbrauch = double(end-begin)/CLOCKS_PER_SEC;
     cout << "\n Zeit für 7x1- und 1x7-Filterung (in s): " << zeitverbrauch << endl;
     if (DEBUG) imshow("7x1- und 1x7-Filterung", bild);
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(bild, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
-    imshow("Hist: 7x1- und 1x7-Filterung", hist_bild);
+    imshow("Hist: 7x1- und 1x7-Filterung", histogramm(bild));
     waitKey(0);
     
     

@@ -17,27 +17,25 @@
 using namespace cv;
 using namespace std;
 
-void histogramm(Mat &bild, Mat &hist_bild, int hist_w, int hist_h, Scalar color) {
+Mat histogramm(Mat &bild) {
+    int hist_w = 256;
+    int hist_h = 450;
+    Mat hist_bild(450, 256, CV_8UC3, Scalar(0, 0, 0));
     Mat hist;
-    int hist_size = 256;
     float range[] = {0, 256};
     const float* hist_range = { range };
-    calcHist(&bild, 1, 0, Mat(), hist, 1, &hist_size, &hist_range, true, false);
-    int bin_w = (int)((double)hist_w/hist_size);
+    calcHist(&bild, 1, 0, Mat(), hist, 1, &hist_w, &hist_range, true, false);
     normalize(hist, hist, 0, hist_bild.rows, NORM_MINMAX, -1, Mat());
-    for (int i=0; i<hist_size; i++) {
-        line(hist_bild, Point(bin_w*(i), hist_h-cvRound(hist.at<float>(i))), Point(bin_w*(i), hist_h), color);
+    for (int i=0; i<hist_w; i++) {
+        line(hist_bild, Point(i, hist_h-cvRound(hist.at<float>(i))), Point(i, hist_h), Scalar(255, 255, 255));
     }
+    return hist_bild;
 }
 
 int main(int argc, const char * argv[]) {
     // Setup
     // Warum auch immer kein relativer Pfad geladen werden kann -.-
     Mat bild = imread("/Users/thahnen/GitHub/gra-uebung/Uebung 2/London.bmp", 0);
-    int hist_w = 256;
-    int hist_h = 400;
-    Mat hist;
-    Mat hist_bild(hist_h, hist_w, CV_8UC3, Scalar(0, 0, 0));
     
     if (!bild.data) {
         cerr << "Bild konnte nicht geladen werden!" << endl;
@@ -51,9 +49,7 @@ int main(int argc, const char * argv[]) {
     cout << "\nMittlerer Grauwert (Normales Bild): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Normales Bild): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Normales Bild", bild);
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(bild, hist_bild, hist_w, hist_h, Scalar(255, 255, 255));
-    imshow("Hist: Normales Bild", hist_bild);
+    imshow("Hist: Normales Bild", histogramm(bild));
     waitKey(0);
     
     // a) lineare Skalierung (mittels Look-Up-Table)
@@ -73,9 +69,7 @@ int main(int argc, const char * argv[]) {
     cout << "\nMittlerer Grauwert (Lineare Skalierung): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Lineare Skalierung): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Lineare Skalierung", ls_bild);
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(ls_bild, hist_bild, hist_w, hist_h, Scalar(0, 255, 0));
-    imshow("Hist: Lineare Skalierung", hist_bild);
+    imshow("Hist: Lineare Skalierung", histogramm(ls_bild));
     waitKey(0);
     
     
@@ -100,9 +94,7 @@ int main(int argc, const char * argv[]) {
     cout << "\nMittlerer Grauwert (Gamma-Transformation): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Gamma-Transformation): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Gamma-Transformation", gt_bild);
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(gt_bild, hist_bild, hist_w, hist_h, Scalar(0, 0, 255));
-    imshow("Hist: Gamma-Transformation", hist_bild);
+    imshow("Hist: Gamma-Transformation", histogramm(gt_bild));
     waitKey(0);
     
     
@@ -114,9 +106,7 @@ int main(int argc, const char * argv[]) {
     cout << "\nMittlerer Grauwert (Histogrammausgleich): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Histogrammausgleich): " << standardabweichung[0] << endl;
     if (DEBUG) imshow("Histogrammausgleich", ha_bild);
-    hist_bild = Scalar(0, 0, 0);
-    histogramm(ha_bild, hist_bild, hist_w, hist_h, Scalar(255, 0, 0));
-    imshow("Hist: Histogrammausgleich", hist_bild);
+    imshow("Hist: Histogrammausgleich", histogramm(ha_bild));
     waitKey(0);
     
     
