@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		EBBF2EDC2175F6E2003F9F51 /* GRA-OpenCV */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "GRA-OpenCV"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBF2EDF2175F6E2003F9F51 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		EBD18AC321B1D12D00041C6F /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				EBBF2EDF2175F6E2003F9F51 /* main.cpp */,
+				EBD18AC321B1D12D00041C6F /* definitions.h */,
 			);
 			path = "GRA-OpenCV";
 			sourceTree = "<group>";

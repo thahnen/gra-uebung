@@ -23,7 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		EBAD3C7B21B1DC9200EC3AC2 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
+		EB3C6A3321B1E48E006F5230 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
 		EBBF2EDC2175F6E2003F9F51 /* GRA-OpenCV */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "GRA-OpenCV"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBBF2EDF2175F6E2003F9F51 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,7 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				EBBF2EDF2175F6E2003F9F51 /* main.cpp */,
-				EBAD3C7B21B1DC9200EC3AC2 /* definitions.h */,
+				EB3C6A3321B1E48E006F5230 /* definitions.h */,
 			);
 			path = "GRA-OpenCV";
 			sourceTree = "<group>";

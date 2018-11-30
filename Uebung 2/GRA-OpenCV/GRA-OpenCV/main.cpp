@@ -11,26 +11,12 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include "definitions.h"
 
-#define DEBUG true
 
 using namespace cv;
 using namespace std;
 
-Mat histogramm(Mat &bild) {
-    int hist_w = 256;
-    int hist_h = 450;
-    Mat hist_bild(450, 256, CV_8UC3, Scalar(0, 0, 0));
-    Mat hist;
-    float range[] = {0, 256};
-    const float* hist_range = { range };
-    calcHist(&bild, 1, 0, Mat(), hist, 1, &hist_w, &hist_range, true, false);
-    normalize(hist, hist, 0, hist_bild.rows, NORM_MINMAX, -1, Mat());
-    for (int i=0; i<hist_w; i++) {
-        line(hist_bild, Point(i, hist_h-cvRound(hist.at<float>(i))), Point(i, hist_h), Scalar(255, 255, 255));
-    }
-    return hist_bild;
-}
 
 int main(int argc, const char * argv[]) {
     // Setup
@@ -48,7 +34,7 @@ int main(int argc, const char * argv[]) {
     meanStdDev(bild, durchschnitt, standardabweichung);
     cout << "\nMittlerer Grauwert (Normales Bild): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Normales Bild): " << standardabweichung[0] << endl;
-    if (DEBUG) imshow("Normales Bild", bild);
+    imshow("Normales Bild", bild);
     imshow("Hist: Normales Bild", histogramm(bild));
     waitKey(0);
     
@@ -68,7 +54,7 @@ int main(int argc, const char * argv[]) {
     meanStdDev(ls_bild, durchschnitt, standardabweichung);
     cout << "\nMittlerer Grauwert (Lineare Skalierung): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Lineare Skalierung): " << standardabweichung[0] << endl;
-    if (DEBUG) imshow("Lineare Skalierung", ls_bild);
+    imshow("Lineare Skalierung", ls_bild);
     imshow("Hist: Lineare Skalierung", histogramm(ls_bild));
     waitKey(0);
     
@@ -93,7 +79,7 @@ int main(int argc, const char * argv[]) {
     meanStdDev(gt_bild, durchschnitt, standardabweichung);
     cout << "\nMittlerer Grauwert (Gamma-Transformation): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Gamma-Transformation): " << standardabweichung[0] << endl;
-    if (DEBUG) imshow("Gamma-Transformation", gt_bild);
+    imshow("Gamma-Transformation", gt_bild);
     imshow("Hist: Gamma-Transformation", histogramm(gt_bild));
     waitKey(0);
     
@@ -105,7 +91,7 @@ int main(int argc, const char * argv[]) {
     meanStdDev(ha_bild, durchschnitt, standardabweichung);
     cout << "\nMittlerer Grauwert (Histogrammausgleich): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Histogrammausgleich): " << standardabweichung[0] << endl;
-    if (DEBUG) imshow("Histogrammausgleich", ha_bild);
+    imshow("Histogrammausgleich", ha_bild);
     imshow("Hist: Histogrammausgleich", histogramm(ha_bild));
     waitKey(0);
     

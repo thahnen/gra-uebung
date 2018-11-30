@@ -12,42 +12,10 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-
-#define DEBUG true
+#include "definitions.h"
 
 using namespace cv;
 using namespace std;
-
-
-Mat histogramm(Mat &bild) {
-    int hist_w = 256;
-    int hist_h = 450;
-    Mat hist_bild(450, 256, CV_8UC3, Scalar(0, 0, 0));
-    Mat hist;
-    float range[] = {0, 256};
-    const float* hist_range = { range };
-    calcHist(&bild, 1, 0, Mat(), hist, 1, &hist_w, &hist_range, true, false);
-    normalize(hist, hist, 0, hist_bild.rows, NORM_MINMAX, -1, Mat());
-    for (int i=0; i<hist_w; i++) {
-        line(hist_bild, Point(i, hist_h-cvRound(hist.at<float>(i))), Point(i, hist_h), Scalar(255, 255, 255));
-    }
-    return hist_bild;
-}
-
-void filter(Mat img, Mat &nimg, Mat mask) {
-    double s, su = sum(mask).val[0];
-    for (int j=mask.rows/2; j<img.rows-mask.rows/2; j++) {
-        for (int i=mask.cols/2; i<img.cols-mask.cols/2; i++) {
-            s = 0;
-            for (int k=-mask.rows/2; k<=mask.rows/2; k++) {
-                for (int l=-mask.cols/2; l<= mask.cols/2; l++) {
-                    s += (int)img.at<uchar>(j+k, i+l)*mask.at<float>(k+ mask.rows/2, l+ mask.cols/2);
-                }
-            }
-            nimg.at<uchar>(j,i) = s/su;
-        }
-    }
-}
 
 
 int main(int argc, const char * argv[]) {
@@ -85,7 +53,7 @@ int main(int argc, const char * argv[]) {
     meanStdDev(bild, durchschnitt, standardabweichung);
     cout << "\nMittlerer Grauwert (Normales Bild): " << durchschnitt[0] << endl;
     cout << "Standardabweichung (Normales Bild): " << standardabweichung[0] << endl;
-    if (DEBUG) imshow("Normales Bild", bild);
+    imshow("Normales Bild", bild);
     imshow("Hist: Normales Bild", histogramm(bild));
     waitKey(0);
     
@@ -100,7 +68,7 @@ int main(int argc, const char * argv[]) {
     end = clock();
     zeitverbrauch = double(end-begin)/CLOCKS_PER_SEC;
     cout << "\n Zeit für 3-fache 3x3-Filterung (in s): " << zeitverbrauch << endl;
-    if (DEBUG) imshow("3-fache 3x3-Filterung", temp);
+    imshow("3-fache 3x3-Filterung", temp);
     imshow("Hist: 3x3-Filterung", histogramm(temp));
     waitKey(0);
     
@@ -112,7 +80,7 @@ int main(int argc, const char * argv[]) {
     end = clock();
     zeitverbrauch = double(end-begin)/CLOCKS_PER_SEC;
     cout << "\n Zeit für 1-fache 7x7-Filterung (in s): " << zeitverbrauch << endl;
-    if (DEBUG) imshow("1-fache 7x7-Filterung", n_bild);
+    imshow("1-fache 7x7-Filterung", n_bild);
     imshow("Hist: 7x7-Filterung", histogramm(n_bild));
     waitKey(0);
     
@@ -125,7 +93,7 @@ int main(int argc, const char * argv[]) {
     end = clock();
     zeitverbrauch = double(end-begin)/CLOCKS_PER_SEC;
     cout << "\n Zeit für 7x1- und 1x7-Filterung (in s): " << zeitverbrauch << endl;
-    if (DEBUG) imshow("7x1- und 1x7-Filterung", bild);
+    imshow("7x1- und 1x7-Filterung", bild);
     imshow("Hist: 7x1- und 1x7-Filterung", histogramm(bild));
     waitKey(0);
     
