@@ -40,13 +40,50 @@ int main(int argc, const char * argv[]) {
     cout << "Standardabweichung (Blumenbild): " << standardabweichung[0] << endl;
     imshow("Blumenbild", bild);
     imshow("Histogramm: Blumenbild", histogramm(bild));
+    imshow("Blumen-Template", bild_template);
+    imshow("Histogramm: Blumen-Template", histogramm(bild_template));
     waitKey(0);
     
     
-    // Templatematching im Frequenzraum
+    // Umwandeln des Blumenbilds in eine komplexe Zahl
+    Mat real_img[] = { Mat_<float>(bild), Mat::zeros(bild.size(), CV_32F) };
+    Mat complex_img, complex_temp;
+    Mat ergebnis(bild.rows, bild.cols, CV_32F, Scalar(0));
     
+    merge(real_img, 2, complex_img);
+    dft(complex_img, complex_img);
+    real_img[0] = Scalar(0);
     
-    // Templatematching im Ortsraum
+    for (int i=0; i<bild_template.rows; i++) {
+        for (int j=0; j<bild_template.cols; j++) {
+            real_img[0].at<float>(i, j) = (float)bild_template.at<uchar>(i, j);
+        }
+    }
+    
+    merge(real_img, 2, complex_temp);
+    dft(complex_temp, complex_temp);
+    // Multiplikation Bild-FFT mit konjungiert komplexer Template-FFT
+    mulSpectrums(complex_img, complex_temp, complex_img, DFT_ROWS, true);
+    idft(complex_img, complex_img, DFT_SCALE);
+    split(complex_img, real_img);
+    normalize(real_img[0], real_img[0], 0, 1, CV_MINMAX);
+    
+    imshow("1. Ergebnis", real_img[0]);
+    waitKey(0);
+    
+    for (int i=0; i<bild.rows-bild_template.rows-1; i++) {
+        for (int j=0; j<bild.cols-bild_template.cols-1; j++) {
+            for (int k=0; k<bild_template.rows; k++) {
+                for (int l=0; l<bild_template.cols; l++) {
+                    ergebnis.at<float>(i, j) += (float)bild.at<uchar>(i+k, j+l) * bild_template.at<uchar>(k, l);
+                }
+            }
+        }
+    }
+    normalize(ergebnis, bild, 0, 1, CV_MINMAX);
+    
+    imshow("2. Ergebnis", ergebnis);
+    waitKey(0);
     
     
     return 0;
