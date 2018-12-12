@@ -3,86 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Uebung 2</title>
+    <title>Uebung 9</title>
     <style type="text/css">
         canvas {}
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/threejs/r84/three.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<script type="text/javascript">
-// Liefern des WebGL-Kontext
-function getGLContext(canvas) {
-    if (canvas == null) {
-        alert("there is no canvas on this page");
-        return;
-    }
-    var names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
-    for (var i = 0; i < names.length; ++i) {
-        try {
-            gl = canvas.getContext(names[i]);
-        } catch (e) { }
-        if (gl) break;
-    }
-    if (gl == null) {
-        alert("WebGL is not available");
-    }
-}
-
-function rendering(canvas) {
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.autoClear = true;
-    renderer.setSize(window.innerHeight, window.innerHeight);
-    renderer.setClearColor("rgb(0, 0, 0)", 1);
-    return renderer;
-}
-
-var scene, camera, renderer;
-
-// Zeichnen der Szene
-function definitionScene() { 
-    // Definition der Kamera mit minx, maxx, maxy, miny, minz, maxz
-    //camera = new THREE.OrthographicCamera();
-
-    // Definition der Geometry 
-    //Vertices als Array von THREE.Vector3-Objekten var vertices = []
-    
-    //Erzeugen eines Geometrie-Objektes  
-    
-    //Erzeugen der Faces als Array von THREE.Face3-Objekten
-  
-    //Definition des Materials
-   
-    //Verbinden von Geometie und Material zu einem Mesh-Objekt
-   
-    scene = new THREE.Scene();
-    //Hinzufuegen des Meshobjekts zur Szene
-
-    axis = new THREE.AxisHelper(50);
-    scene.add(axis);
-    renderer = rendering(canvas);
-      
-}
-
-
-function renderloop() {
-    requestAnimationFrame(renderloop);
-    renderer.render(scene, camera);
-}
-
-var canvas;
-
-// Ausfuehren der WebGL-Anwendung, wird durch den onLoad-Event von der Webseite aufgerufen 
-function runWebGLApp() {
-    canvas = document.getElementById("canvas-element-id");
-    //Beschaffen des WebGL-Kontext
-    getGLContext(canvas);
-    definitionScene();
-    //Rendern der Szene
-    renderloop();    
-}
-</script>
+    <script type="text/javascript" src="uebung_9.js"></script>
 </head>
 <body onLoad='runWebGLApp()'>
     <canvas id="canvas-element-id"></canvas>

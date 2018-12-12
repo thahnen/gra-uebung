@@ -82,7 +82,7 @@ int main(int argc, const char * argv[]) {
     }
     normalize(ergebnis, bild, 0, 1, CV_MINMAX);
     
-    imshow("2. Ergebnis", ergebnis);
+    imshow("2. Ergebnis", bild); // ist zwar nicht mehr schwarz, aber dafür rechts & unten schwarzer Rand!
     waitKey(0);
     
     
