@@ -22,7 +22,7 @@ Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu ers
 - [x] Übung 5 (09.11.2018) : siehe Ordner
 - [x] Übung 6 (16.11.2018) : siehe Ordner
 - [x] Übung 7 (23.11.2018) : siehe Ordner
-- [x] Übung 8 (30.11.2018) : siehe Ordner => allerdings funktioniert die Musterlösung nicht wirklich
-- [ ] Übung 9 (07.12.2018) : siehe Ordner
-- [ ] Übung 10 (14.12.2018): ...
+- [x] Übung 8 (30.11.2018) : siehe Ordner
+- [x] Übung 9 (07.12.2018) : siehe Ordner
+- [ ] Übung 10 (14.12.2018): siehe Ordner
 ...

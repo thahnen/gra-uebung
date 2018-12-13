@@ -2,12 +2,12 @@
 
 // Liefern des WebGL-Kontext
 function getGLContext(canvas) {
-	let gl = null;
+	let gl = gl || null;
     if (canvas == null) {
         alert("there is no canvas on this page");
         return;
     }
-    var names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
+    let names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
     for (var i = 0; i < names.length; ++i) {
         try {
             gl = canvas.getContext(names[i]);
@@ -20,7 +20,7 @@ function getGLContext(canvas) {
 }
 
 function rendering(canvas) {
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+    let renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.autoClear = true;
     renderer.setSize(window.innerHeight, window.innerHeight);
@@ -28,8 +28,8 @@ function rendering(canvas) {
     return renderer;
 }
 
-var canvas;
-var scene, camera, renderer;
+let canvas;
+let scene, camera, renderer;
 
 // Zeichnen der Szene
 function definitionScene() { 
@@ -66,26 +66,25 @@ function definitionScene() {
     for (var i = 0; i < faces.length; i++) {
     	geometry.faces.push(faces[i]);
     }
-  
+
     //Definition des Materials
     //let material = new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors, side: THREE.DoubleSide});
     let materials = [
-    	new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors, side: THREE.DoubleSide}),
-    	new THREE.MeshBasicMaterial({color: 0x000000, wireframe: true, transparent: true})
+    	new THREE.MeshBasicMaterial({ vertexColors: THREE.VertexColors, side: THREE.DoubleSide }),
+    	new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true })
     ]
-   
+
     //Verbinden von Geometie und Material zu einem Mesh-Objekt
     //let pyramide = new THREE.Mesh(geometry, material);
     let pyramide = THREE.SceneUtils.createMultiMaterialObject(geometry, materials);
-   
-    scene = new THREE.Scene();
+
     //Hinzufuegen des Meshobjekts zur Szene
+    scene = new THREE.Scene();
     scene.add(pyramide)
 
     let axis = new THREE.AxisHelper(50);
     scene.add(axis);
     renderer = rendering(canvas);
-      
 }
 
 
