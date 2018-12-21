@@ -8,7 +8,6 @@ Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu ers
 
 ## ~~Team~~-Member:
 1. Tobias Hahnen (1218710)
-2. Marvin Krause (xyzxyzx)
 
 ## Technik
 1. Die Übungen 1-8 behandeln OpenCV in C++.
@@ -24,5 +23,5 @@ Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu ers
 - [x] Übung 7 (23.11.2018) : siehe Ordner
 - [x] Übung 8 (30.11.2018) : siehe Ordner
 - [x] Übung 9 (07.12.2018) : siehe Ordner
-- [ ] Übung 10 (14.12.2018): siehe Ordner
+- [x] Übung 10 (14.12.2018): siehe Ordner
 ...

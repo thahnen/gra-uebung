@@ -1,5 +1,7 @@
 'use strict';
 
+let canvas, scene, camera, renderer;
+
 // Liefern des WebGL-Kontext
 function getGLContext(canvas) {
 	let gl = gl || null;
@@ -8,7 +10,7 @@ function getGLContext(canvas) {
         return;
     }
     let names = ["webgl", "experimental-webgl", "webkit-3d", "moz-webgl"];
-    for (var i = 0; i < names.length; ++i) {
+    for (let i = 0; i < names.length; ++i) {
         try {
             gl = canvas.getContext(names[i]);
         } catch (e) { }
@@ -28,9 +30,6 @@ function rendering(canvas) {
     return renderer;
 }
 
-let canvas;
-let scene, camera, renderer;
-
 // Zeichnen der Szene
 function definitionScene() { 
     // Definition der Kamera mit minx, maxx, maxy, miny, minz, maxz
@@ -49,7 +48,7 @@ function definitionScene() {
     	new THREE.Vector3(1, 1.5, 1),
     	new THREE.Vector3(-1, 1.5, 1)
     ];
-    for (var i = 0; i < vertices.length; i++) {
+    for (let i = 0; i < vertices.length; i++) {
     	geometry.vertices.push(vertices[i]);
     }
     
@@ -63,7 +62,7 @@ function definitionScene() {
     	new THREE.Face3(1, 4, 2, normal, new THREE.Color(0xff00ff), 0),
     	new THREE.Face3(2, 4, 3, normal, new THREE.Color(0x00ffff), 0)
     ];
-    for (var i = 0; i < faces.length; i++) {
+    for (let i = 0; i < faces.length; i++) {
     	geometry.faces.push(faces[i]);
     }
 
