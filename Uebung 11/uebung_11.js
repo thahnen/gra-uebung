@@ -2,6 +2,8 @@
 
 let canvas, scene, camera, renderer, avantar;
 let avatar, left_hand, right_hand, left_foot, right_foot, baum;
+let richtung = 0;
+let winkel = 60;
 
 
 function rand(min, max) {
@@ -14,9 +16,12 @@ function definitionScene() {
     scene = new THREE.Scene();
 
     // Definition der Kamera
-    camera = new THREE.PerspectiveCamera(60, 1, 1.0, 300);
+    camera = new THREE.PerspectiveCamera(winkel, 1, 1.0, 300);
+    //camera = new THREE.OrthographicCamera(-100, 100, 100, -100, 1.0, 300.0);
     console.info("Kamera FOV: " + camera.fov);
-    camera.position.z = 0;
+    //camera.position.x = 50;
+    //camera.position.y = 50;
+    //camera.position.z = 200;
     camera.lookAt(new THREE.Vector3(0, 0, -100));
     camera.up = new THREE.Vector3(0.0, 1.0, 0.0);
    
@@ -57,6 +62,7 @@ function definitionScene() {
 
     // Avatar ausrichten und zur Szene hinzufuegen
     avatar.position.x = 30;
+    avatar.add(camera);
     scene.add(avatar);
 
     // 5 Baeume zur Szene hinzufügen
@@ -99,31 +105,47 @@ function definitionScene() {
 
 function animate() {
     requestAnimationFrame(animate);
+    switch (richtung) {
+        case 1:
+            avatar.translateX(-1);
+            break;
+        case 2:
+            avatar.translateZ(-1);
+            break;
+        case 3:
+            avatar.translateX(1);
+            break;
+        case 4:
+            avatar.translateZ(1);
+            break;
+        default:
+            break;
+    }
+    camera.fov = winkel;
+    camera.updateProjectionMatrix();
     renderer.render(scene, camera);
 }
 
 
-/* 
 function click_down(event) {
     event = event || window.event;
     let code = event.keyCode;
     if (code == 37) {
-        
-    }
-    else if (code == 38) {       
-       
-    }
-    else if (code == 39) {
-      
-    }
-    else if (code == 40) {
-        
-    }
-    else if (code == 171) {
-       
-    }
-    else if (code == 173) {
-        
+        richtung = 1;
+    } else if (code == 38) {
+        richtung = 2;
+    } else if (code == 39) {
+        richtung = 3;
+    } else if (code == 40) {
+        richtung = 4;
+    } else if (code == 171) {
+        if (winkel >= 10) {
+            winkel--;
+        }
+    } else if (code == 173) {
+        if (winkel <= 165) {
+            winkel++;
+        }
     }
 };
 
@@ -132,32 +154,24 @@ function click_up(event) {
     event = event || window.event;
     let code = event.keyCode;
     if (code == 37) {
-      
-    }
-    else if (code == 38) {
-       
-    }
-    else if (code == 39) {
-        
-    }
-    else if (code == 40) {
-       
-    }
-    else if (code == 171) {
-        
-    }
-    else if (code == 173) {
-        
+        richtung = 0;
+    } else if (code == 38) {
+        richtung = 0;
+    } else if (code == 39) {
+        richtung = 0;
+    } else if (code == 40) {
+        richtung = 0;
+    } else if (code == 171) {
+    } else if (code == 173) {
     }
 };
-*/
 
 
 // Ausfuehren der WebGL-Anwendung, wird durch den onLoad-Event von der Webseite aufgerufen 
 function runWebGLApp() {
     canvas = document.getElementById("canvas-element-id");
     definitionScene();
-    //document.addEventListener("keydown", click_down);
-    //document.addEventListener("keyup", click_up);
+    document.addEventListener("keydown", click_down);
+    document.addEventListener("keyup", click_up);
     animate();   
 }
