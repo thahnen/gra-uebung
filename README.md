@@ -3,7 +3,7 @@
 **Vorlesung: Graphische Daten- & Bildverarbeitung (3. Semester)**
 
 Alle Übungen, die dazugehörigen Dateien/ Materialien und Lösungen (Xcode-Projekte) in den jeweiligen Ordnern.
-Im Ordner befindet sich ein Webloc-Link zum Artikel über OpenCV unter XCode!
+Im Ordner befindet sich ein Webloc-Link zum Artikel über OpenCV unter XCode (der aber mit OpenCV4 nicht mehr aktuell ist).
 Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu erstellen etc. zu aufwändig. Daher heissen die Ordner in den Übungen alle gleich!
 
 ## ~~Team~~-Member:
@@ -25,5 +25,8 @@ Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu ers
 - [x] Übung 9 (07.12.2018) : siehe Ordner
 - [x] Übung 10 (14.12.2018) : siehe Ordner
 - [x] Übung 11 (04.01.2019) : siehe Ordner
-- [ ] Übung 12 (11.01.2019) : siehe Ordner
+- [x] Übung 12 (11.01.2019) : siehe Ordner
 ...
+
+## TODO:
+Alle XCode-Projekte müssen wegen OpenCV4 überarbeitet werden!
