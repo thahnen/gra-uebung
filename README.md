@@ -10,8 +10,8 @@ Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu ers
 1. Tobias Hahnen (1218710)
 
 ## Technik
-1. Die Übungen 1-8 behandeln OpenCV in C++.
-2. Die Übungen 9-X behandeln THREE.js in JavaScript.
+1. Die Übungen 1-8 behandeln das Framework OpenCV in C++.
+2. Die Übungen 9-14 behandeln das Framework THREE.js in JavaScript.
 
 ## Bearbeitet:
 - [x] Übung 1 (12.10.2018) : siehe Ordner
@@ -26,7 +26,7 @@ Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu ers
 - [x] Übung 10 (14.12.2018) : siehe Ordner
 - [x] Übung 11 (04.01.2019) : siehe Ordner
 - [x] Übung 12 (11.01.2019) : siehe Ordner
-- [ ] Übung 13 (18.01.2019) : siehe Ordner
+- [x] Übung 13 (18.01.2019) : siehe Ordner
 - [ ] Übung 14 (25.01.2019) : siehe Ordner
 
 ## TODO:
