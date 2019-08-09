@@ -2,6 +2,7 @@
 
 let canvas, scene, camera, renderer;
 
+
 // Liefern des WebGL-Kontext
 function getGLContext(canvas) {
 	let gl = gl || null;
@@ -31,7 +32,7 @@ function rendering(canvas) {
 }
 
 // Zeichnen der Szene
-function definitionScene() { 
+function definitionScene() {
     // Definition der Kamera mit minx, maxx, maxy, miny, minz, maxz
     //camera = new THREE.OrthographicCamera();
     camera = new THREE.OrthographicCamera(-2.5, 2.5, 2.5, -2.5, -10, 10);
@@ -51,7 +52,7 @@ function definitionScene() {
     for (let i = 0; i < vertices.length; i++) {
     	geometry.vertices.push(vertices[i]);
     }
-    
+
     //Erzeugen der Faces als Array von THREE.Face3-Objekten
     let normal = THREE.Vector3(0, 1, 0);
     let faces = [
@@ -96,12 +97,12 @@ function renderloop() {
 }
 
 
-// Ausfuehren der WebGL-Anwendung, wird durch den onLoad-Event von der Webseite aufgerufen 
+// Ausfuehren der WebGL-Anwendung, wird durch den onLoad-Event von der Webseite aufgerufen
 function runWebGLApp() {
     canvas = document.getElementById("canvas-element-id");
     //Beschaffen des WebGL-Kontext
     getGLContext(canvas);
     definitionScene();
     //Rendern der Szene
-    renderloop();    
+    renderloop();
 }

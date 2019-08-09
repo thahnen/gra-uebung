@@ -24,7 +24,7 @@ function definitionScene() {
     //camera.position.z = 200;
     camera.lookAt(new THREE.Vector3(0, 0, -100));
     camera.up = new THREE.Vector3(0.0, 1.0, 0.0);
-   
+
     // Definition der Geometry
     // Avatar als Mesh-Objekt (Kegel)
     let geometry = new THREE.ConeGeometry(8, 15, 32);
@@ -139,13 +139,9 @@ function click_down(event) {
     } else if (code == 40) {
         richtung = 4;
     } else if (code == 171) {
-        if (winkel >= 10) {
-            winkel--;
-        }
+        if (winkel >= 10) winkel--;
     } else if (code == 173) {
-        if (winkel <= 165) {
-            winkel++;
-        }
+        if (winkel <= 165) winkel++;
     }
 };
 
@@ -161,17 +157,15 @@ function click_up(event) {
         richtung = 0;
     } else if (code == 40) {
         richtung = 0;
-    } else if (code == 171) {
-    } else if (code == 173) {
     }
 };
 
 
-// Ausfuehren der WebGL-Anwendung, wird durch den onLoad-Event von der Webseite aufgerufen 
+// Ausfuehren der WebGL-Anwendung, wird durch den onLoad-Event von der Webseite aufgerufen
 function runWebGLApp() {
     canvas = document.getElementById("canvas-element-id");
     definitionScene();
     document.addEventListener("keydown", click_down);
     document.addEventListener("keyup", click_up);
-    animate();   
+    animate();
 }

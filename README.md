@@ -4,7 +4,7 @@
 
 Alle Übungen, die dazugehörigen Dateien/ Materialien und Lösungen (Xcode-Projekte) in den jeweiligen Ordnern.
 Im Ordner befindet sich ein Webloc-Link zum Artikel über OpenCV unter XCode (der aber mit OpenCV4 nicht mehr aktuell ist).
-Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu erstellen etc. zu aufwändig. Daher heissen die Ordner in den Übungen alle gleich!
+Das Xcode-Template ist immer das Gleiche, da immer neue Compiler-Linkings zu erstellen etc. zu aufwändig. Daher heissen die Ordner in den Übungen alle gleich!
 
 ## ~~Team~~-Member:
 1. Tobias Hahnen (1218710)
@@ -27,7 +27,7 @@ Das Xcode-Template ist immer das gleiche, da immer neue Compiler-Linkings zu ers
 - [x] Übung 11 (04.01.2019) : siehe Ordner
 - [x] Übung 12 (11.01.2019) : siehe Ordner
 - [x] Übung 13 (18.01.2019) : siehe Ordner
-- [ ] Übung 14 (25.01.2019) : siehe Ordner
+- [x] Übung 14 (25.01.2019) : siehe Ordner
 
 ## TODO:
 Alle XCode-Projekte müssen wegen OpenCV4 überarbeitet werden!

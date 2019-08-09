@@ -7,6 +7,7 @@ let start = false;
 let bright = false;
 let dark = false;
 
+
 // Zeichnen der Szene
 function drawScene() {
     scene = new THREE.Scene();
@@ -109,7 +110,7 @@ function drawScene() {
     lighthouse.castShadow = true;
     lighthouse.receiveShadow = true;
     scene.add(lighthouse);
-   
+
     // Haus & Dach
     let geometry_house = new THREE.BoxGeometry(20, 8, 4);
     let material_house = new THREE.MeshLambertMaterial({ color: 0xFE642E });
@@ -132,7 +133,7 @@ function drawScene() {
         new THREE.Face3(0, 4, 1)
     ];
     geometry_roof.faces = faces;
-    
+
     let material_roof = new THREE.MeshLambertMaterial({ color: 0xB40404 });
     let roof = new THREE.Mesh(geometry_roof, material_roof);
     house.add(roof);
@@ -142,11 +143,11 @@ function drawScene() {
     house.position.y = -7;
 
     scene.add(house);
-      
+
     // Ambientes Licht
     ambientlight = new THREE.AmbientLight("rgb(255, 0, 0)", 0.1);
     scene.add(ambientlight);
-   
+
     // Gerichtete Lichtquelle (Sonnenlicht)
     directionalLight = new THREE.DirectionalLight(0xffffff, 0.2);
     directionalLight.position.z = 200;
@@ -157,13 +158,13 @@ function drawScene() {
 
     //let helper = new THREE.DirectionalLightHelper(directionalLight, 5);
     //scene.add(helper);
-   
+
     // Hilfsobjekt
     blackbox = new THREE.Object3D();
     blackbox.position.x = lighthouse.position.x;
     blackbox.position.z = lighthouse.position.z;
     blackbox.position.y = lighthouse.position.y + 5;
- 
+
     // Scheinwerfer
     spotLight = new THREE.SpotLight(0xffffff, 1);
     spotLight.position.x = 0;
@@ -185,10 +186,10 @@ function drawScene() {
 
     //let spotLightHelper = new THREE.SpotLightHelper(spotLight);
     //scene.add(spotLightHelper);
-    
+
     blackbox.add(spotLight);
     scene.add(blackbox);
-  
+
     renderer.render(scene, camera);
 }
 
@@ -199,11 +200,11 @@ function animate() {
     if (start == true) {
         angle = angle + 0.01;
         if (angle > 359) { angle = 0; }
-        blackbox.rotateOnAxis(new THREE.Vector3(0, 1, 0), angle * Math.PI/180.0);       
+        blackbox.rotateOnAxis(new THREE.Vector3(0, 1, 0), angle * Math.PI/180.0);
     }
 
     if (dark == true && directionalLight.intensity > 0) {
-        directionalLight.intensity = directionalLight.intensity - 0.01; 
+        directionalLight.intensity = directionalLight.intensity - 0.01;
     } else if (bright == true && directionalLight.intensity + ambientlight.intensity < 1.0) {
         directionalLight.intensity = directionalLight.intensity + 0.01;
     }
